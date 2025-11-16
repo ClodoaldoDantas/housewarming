@@ -3,5 +3,8 @@ const message = 'Hello World!'
 </script>
 
 <template>
-	<h1>{{ message }}</h1>
+  <div class="container">
+    <h1>{{ message }}</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, incidunt.</p>
+  </div>
 </template>

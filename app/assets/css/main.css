@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font: inherit;
 }
 
 html {
@@ -20,6 +19,14 @@ html {
   --color-primary-hover: #0D74CE;
   --color-white: #FFFFFF;
   --color-background: #F9F9F9;
+
+  --text-3xl: 3.2rem;
+  --text-2xl: 2.4rem;
+  --text-xl: 2rem;
+  --text-lg: 1.8rem;
+  --text-base: 1.6rem;
+  --text-sm: 1.4rem;
+  --text-xs: 1.2rem;
 }
 
 a {
@@ -44,14 +51,23 @@ img {
 body {
   background-color: var(--color-background);
   color: var(--color-text-secondary);
+  line-height: 1.5;
 }
 
 body, input, textarea, button {
   font-family: 'Quicksand', sans-serif;
-  font-size: 1.6rem;
+  font-size: var(--text-base);
 }
 
 h1, h2, h3, h4, h5, h6, strong {
   font-weight: 600;
+  line-height: 1.2;
   color: var(--color-text-primary);
+  font-size: var(--text-base);
+}
+
+.container {
+  width: min(100%, 124.8rem);
+  margin: 0 auto;
+  padding: 0 1.6rem;
 }
