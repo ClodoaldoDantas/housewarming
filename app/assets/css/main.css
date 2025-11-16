@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+:root {
+  --color-text-primary: #202020;
+  --color-text-secondary: #646464;
+  --color-border: #BBBBBB;
+  --color-pending: #F76B15;
+  --color-success: #29A383;
+  --color-success-hover: #208368;
+  --color-primary: #0090FF;
+  --color-primary-hover: #0D74CE;
+  --color-white: #FFFFFF;
+  --color-background: #F9F9F9;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-secondary);
+}
+
+body, input, textarea, button {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.6rem;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}

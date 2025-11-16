@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxt/eslint'],
+	modules: ['@nuxt/eslint', '@nuxt/fonts'],
 	devtools: { enabled: true },
+	css: ['~/assets/css/main.css'],
 	compatibilityDate: '2025-07-15',
 	eslint: {
 		config: {
@@ -10,6 +11,12 @@ export default defineNuxtConfig({
 				semi: false,
 				quotes: 'single',
 			},
+		},
+	},
+	fonts: {
+		defaults: {
+			weights: [400, 600],
+			styles: ['normal'],
 		},
 	},
 })

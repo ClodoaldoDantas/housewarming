@@ -1,5 +1,5 @@
 <script setup>
-const message = 'Hi, I am App.vue'
+const message = 'Hello World!'
 </script>
 
 <template>
