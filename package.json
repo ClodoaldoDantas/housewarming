@@ -16,10 +16,12 @@
     "@nuxt/fonts": "^0.12.1",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
+    "nuxt-phosphor-icons": "^2.3.2",
     "vue": "^3.5.24",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "sass": "^1.94.0",
     "typescript": "^5.9.3"
   }
 }

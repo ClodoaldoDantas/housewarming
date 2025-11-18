@@ -14,9 +14,9 @@ html {
   --color-border: #BBBBBB;
   --color-pending: #F76B15;
   --color-success: #29A383;
-  --color-success-hover: #208368;
+  --color-success-dark: #208368;
   --color-primary: #0090FF;
-  --color-primary-hover: #0D74CE;
+  --color-primary-dark: #0D74CE;
   --color-white: #FFFFFF;
   --color-background: #F9F9F9;
 
@@ -54,12 +54,21 @@ body {
   line-height: 1.5;
 }
 
-body, input, textarea, button {
+body,
+input,
+textarea,
+button {
   font-family: 'Quicksand', sans-serif;
   font-size: var(--text-base);
 }
 
-h1, h2, h3, h4, h5, h6, strong {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
   font-weight: 600;
   line-height: 1.2;
   color: var(--color-text-primary);

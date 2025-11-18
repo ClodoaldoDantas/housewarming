@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxt/eslint', '@nuxt/fonts'],
+	modules: ['@nuxt/eslint', '@nuxt/fonts', 'nuxt-phosphor-icons'],
 	devtools: { enabled: true },
-	css: ['~/assets/css/main.css'],
+	css: ['~/assets/styles/global.scss'],
 	compatibilityDate: '2025-07-15',
 	eslint: {
 		config: {
@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 	},
 	fonts: {
 		defaults: {
-			weights: [400, 600],
+			weights: [400, 500, 600],
 			styles: ['normal'],
 		},
 	},
