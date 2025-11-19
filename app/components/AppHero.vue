@@ -75,11 +75,24 @@ const scrollToId = (id: string) => {
   background-color: var(--color-white);
   padding: 4.8rem 0;
 
+  @media(width >= 1024px) {
+    padding: 6.4rem 0;
+  }
+
+  @media(width >= 1200px) {
+    padding: 9.6rem 0;
+  }
+
   &__container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2.4rem;
+
+    @media(width >= 1200px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   &__content {
@@ -89,6 +102,16 @@ const scrollToId = (id: string) => {
   &__title {
     font-size: var(--text-2xl);
     margin-bottom: 3.2rem;
+    max-width: 40rem;
+    margin-inline: auto;
+
+    @media(width >= 1200px) {
+      text-align: left;
+      margin-inline: 0;
+      font-size: var(--text-3xl);
+      margin-bottom: 4rem;
+      max-width: 48rem;
+    }
   }
 
   &__steps {
@@ -98,6 +121,14 @@ const scrollToId = (id: string) => {
 
     gap: 2.4rem;
     margin-bottom: 3.2rem;
+
+    @media(width >= 768px) {
+      flex-direction: row;
+    }
+
+    @media(width >= 1200px) {
+      margin-bottom: 4rem;
+    }
   }
 
   &__step {
