@@ -29,7 +29,7 @@ const scrollToId = (id: string) => {
         <div class="hero__steps">
           <div class="hero__step">
             <div class="hero__icon">
-              <PhosphorIcon
+              <phosphor-icon
                 name="number-circle-three"
                 weight="bold"
               />
@@ -39,7 +39,7 @@ const scrollToId = (id: string) => {
 
           <div class="hero__step">
             <div class="hero__icon">
-              <PhosphorIcon
+              <phosphor-icon
                 name="money"
                 weight="bold"
               />
@@ -49,7 +49,7 @@ const scrollToId = (id: string) => {
 
           <div class="hero__step">
             <div class="hero__icon">
-              <PhosphorIcon
+              <phosphor-icon
                 name="gift"
                 weight="bold"
               />
@@ -59,11 +59,11 @@ const scrollToId = (id: string) => {
         </div>
 
         <div class="hero__actions">
-          <BaseButton @click="scrollToId('raffle-map')">
+          <base-button @click="scrollToId('raffle-map')">
             Quero Participar
-          </BaseButton>
+          </base-button>
 
-          <InfoBlock :description="`o sorteio será realizado em ${DRAW_DATE}`" />
+          <info-block :description="`o sorteio será realizado em ${DRAW_DATE}`" />
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ const props = defineProps<Props>()
 
 <template>
   <div class="info-block">
-    <PhosphorIcon name="info" />
+    <phosphor-icon name="info" />
     <span>{{ props.description }}</span>
   </div>
 </template>
