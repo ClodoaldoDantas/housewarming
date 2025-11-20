@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { DRAW_DATE } from '~/config/constants'
 
-const scrollToId = (id: string) => {
-  const element = document.getElementById(id)
-  element?.scrollIntoView({ behavior: 'smooth' })
-}
+const dateFormatted = new Date(DRAW_DATE).toLocaleDateString('pt-BR')
 </script>
 
 <template>
@@ -59,11 +56,13 @@ const scrollToId = (id: string) => {
         </div>
 
         <div class="hero__actions">
-          <base-button @click="scrollToId('raffle-map')">
+          <base-button @click="scrollToSection('order-section')">
             Quero Participar
           </base-button>
 
-          <info-block :description="`o sorteio será realizado em ${DRAW_DATE}`" />
+          <info-block>
+            o sorteio será realizado em <time :datetime="DRAW_DATE">{{ dateFormatted }}</time>
+          </info-block>
         </div>
       </div>
     </div>

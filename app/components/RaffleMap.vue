@@ -1,103 +1,72 @@
 <template>
-  <section
-    id="raffle-map"
-    class="raffle-map"
-  >
-    <header class="raffle-map__header">
-      <div class="container">
-        <h2 class="raffle-map__title">
-          Mapa completo dos números da rifa
-        </h2>
+  <div class="raffle-map-grid">
+    <number-selector
+      v-for="value in 100"
+      :key="value"
+      status="available"
+    >
+      {{ value }}
+    </number-selector>
+  </div>
 
-        <p class="raffle-map__description">
-          Visualize a lista completa com status: disponível, pendente e confirmado. Selecione os disponíveis para participar.
-        </p>
-      </div>
-    </header>
+  <div class="swipe-hint">
+    <phosphor-icon
+      name="arrow-right"
+      weight="bold"
+    />
+  </div>
 
-    <div class="raffle-map__content">
-      <div class="raffle-map__grid">
-        <number-selector
-          v-for="value in 100"
-          :key="value"
-          status="available"
-        >
-          {{ value }}
-        </number-selector>
-      </div>
-
-      <div class="raffle-map__swipe-hint">
-        <phosphor-icon
-          name="arrow-right"
-          weight="bold"
-        />
-      </div>
-    </div>
-  </section>
+  <ul class="raffle-map-legend">
+    <li class="raffle-map-legend__item">
+      Disponível
+    </li>
+    <li class="raffle-map-legend__item">
+      Indisponível
+    </li>
+    <li class="raffle-map-legend__item">
+      Aguardando Pagamento
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
-.raffle-map {
-  padding: 4.8rem 0;
+.raffle-map-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 4rem);
+  gap: 0.8rem;
 
-  &__header {
-    text-align: center;
-    margin-bottom: 3.2rem;
+  padding: 0 1.6rem 1.6rem;
+  overflow-x: auto;
+  margin: 0 auto;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  &__title {
-    font-size: var(--text-2xl);
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-  }
-
-  &__description {
-    font-size: var(--text-sm);
-    max-width: 29rem;
-    margin: 0 auto;
-  }
-
-  &__content {
-    width: 100%;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(10, 4rem);
-    gap: 0.8rem;
-
-    padding: 0 1.6rem 1.6rem;
-    overflow-x: auto;
-    margin: 0 auto;
-
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    @media (width >= 500px) {
-      justify-content: center;
-    }
-
-    @media (width >= 768px) {
-      gap: 1.2rem;
-      padding: 0;
-    }
-  }
-
-  &__swipe-hint {
+  @media (width >= 500px) {
+    justify-content: center;
     padding: 0 1.6rem;
-    text-align: right;
+  }
 
-    svg {
-      font-size: 1.6rem;
-      animation: swipe 0.5s ease-in 0s infinite alternate;
-    }
+  @media (width >= 768px) {
+    gap: 1.2rem;
+    padding: 0;
+  }
+}
 
-    @media (width >= 500px) {
-      display: none;
-    }
+.swipe-hint {
+  padding: 0 1.6rem;
+  text-align: right;
+
+  svg {
+    font-size: 1.6rem;
+    animation: swipe 0.5s ease-in 0s infinite alternate;
+  }
+
+  @media (width >= 500px) {
+    display: none;
   }
 }
 
@@ -107,6 +76,53 @@
   }
   to {
     transform: translateX(8px);
+  }
+}
+
+.raffle-map-legend {
+  padding: 0 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  @media (width >= 500px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2.4rem;
+    margin-top: 2.4rem;
+  }
+
+  @media (width >= 768px) {
+    margin-top: 3.2rem;
+  }
+
+  &__item {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    line-height: 1;
+
+    &::before {
+      content: "";
+      height: 1.8rem;
+      width: 1.8rem;
+      border: 1px solid transparent;
+      border-radius: 0.4rem;
+    }
+
+    &:nth-child(1)::before {
+      border-color: var(--color-border);
+    }
+
+    &:nth-child(2)::before {
+      background-color: var(--color-unavailable);
+    }
+
+    &:nth-child(3)::before {
+      background-color: var(--color-pending);
+    }
   }
 }
 </style>

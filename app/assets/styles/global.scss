@@ -68,12 +68,17 @@ h2,
 h3,
 h4,
 h5,
-h6,
-strong {
+h6 {
   font-weight: 600;
   line-height: 1.2;
   color: var(--color-text-primary);
   font-size: var(--text-base);
+}
+
+b,
+time {
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
 .container {

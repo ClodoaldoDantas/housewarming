@@ -1,6 +1,9 @@
 <template>
   <main>
-    <app-hero />
-    <raffle-map />
+    <hero-section />
+
+    <order-section>
+      <raffle-map />
+    </order-section>
   </main>
 </template>
