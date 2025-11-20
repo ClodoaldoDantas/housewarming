@@ -9,19 +9,31 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx ./app/lib/database/seed.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.15",
     "@nuxt/eslint": "^1.10.0",
     "@nuxt/fonts": "^0.12.1",
+    "@paralleldrive/cuid2": "^3.0.4",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
     "nuxt-phosphor-icons": "^2.3.2",
     "vue": "^3.5.24",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
+    "drizzle-kit": "^0.31.7",
     "sass": "^1.94.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }
