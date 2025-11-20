@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  status?: 'available' | 'pending' | 'unavailable' | 'selected'
+  status?: 'available' | 'pending' | 'unavailable'
 }
 
 const { status = 'available' } = defineProps<Props>()
@@ -10,6 +10,7 @@ const { status = 'available' } = defineProps<Props>()
   <button
     type="button"
     class="number-selector"
+    v-bind="$attrs"
     :data-status="status"
   >
     <slot />
@@ -47,12 +48,6 @@ const { status = 'available' } = defineProps<Props>()
     cursor: not-allowed;
     background-color: var(--color-unavailable);
     color: var(--color-white);
-  }
-
-  &[data-status="selected"] {
-    background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
   }
 }
 </style>
