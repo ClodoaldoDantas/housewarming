@@ -1,39 +1,53 @@
 <script setup lang="ts">
+const { data: tickets, error } = await useFetch('/api/tickets')
+
 const emit = defineEmits<{
   (e: 'onSelect', value: number): void
 }>()
 </script>
 
 <template>
-  <div class="raffle-map-grid">
-    <number-selector
-      v-for="value in 100"
-      :key="value"
-      status="available"
-      @click="() => emit('onSelect', value)"
+  <div>
+    <p
+      v-if="error"
+      class="error-message"
     >
-      {{ value }}
-    </number-selector>
-  </div>
+      Não foi possível carregar o mapa de números. Tente recarregar a página.
+    </p>
 
-  <div class="swipe-hint">
-    <phosphor-icon
-      name="arrow-right"
-      weight="bold"
-    />
-  </div>
+    <div
+      v-else
+      class="raffle-map-grid"
+    >
+      <number-selector
+        v-for="ticket in tickets"
+        :key="ticket.id"
+        :status="ticket.status"
+        @click="() => emit('onSelect', ticket.number)"
+      >
+        {{ ticket.number }}
+      </number-selector>
+    </div>
 
-  <ul class="raffle-map-legend">
-    <li class="raffle-map-legend__item">
-      Disponível
-    </li>
-    <li class="raffle-map-legend__item">
-      Indisponível
-    </li>
-    <li class="raffle-map-legend__item">
-      Aguardando Pagamento
-    </li>
-  </ul>
+    <div class="swipe-hint">
+      <phosphor-icon
+        name="arrow-right"
+        weight="bold"
+      />
+    </div>
+
+    <ul class="raffle-map-legend">
+      <li class="raffle-map-legend__item">
+        Disponível
+      </li>
+      <li class="raffle-map-legend__item">
+        Indisponível
+      </li>
+      <li class="raffle-map-legend__item">
+        Aguardando Pagamento
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -131,5 +145,11 @@ const emit = defineEmits<{
       background-color: var(--color-pending);
     }
   }
+}
+
+.error-message {
+  text-align: center;
+  color: var(--color-error);
+  font-weight: 500;
 }
 </style>

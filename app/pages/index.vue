@@ -1,14 +1,17 @@
 <script setup lang="ts">
+type Step = 'order' | 'payment'
+
 const cartModalRef = ref()
 const selectedNumber = ref<number | null>(null)
+const currentStep = ref<Step>('order')
 
-const currentStep = ref<'order' | 'payment'>('order')
-const onNextStep = () => currentStep.value = 'payment'
+const onNextStep = (step: Step) => {
+  currentStep.value = step
+}
 
 const openCartModal = (value: number) => {
   currentStep.value = 'order'
   selectedNumber.value = value
-
   cartModalRef.value.openModal()
 }
 </script>
@@ -25,7 +28,7 @@ const openCartModal = (value: number) => {
       <order-form
         v-if="currentStep === 'order' && selectedNumber !== null"
         :selected-number="selectedNumber"
-        @on-success="onNextStep"
+        @on-success="() => onNextStep('payment')"
       />
       <payment-details v-else />
     </CartModal>

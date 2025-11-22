@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  status?: 'available' | 'pending' | 'unavailable'
+  status?: string | null
 }
 
 const { status = 'available' } = defineProps<Props>()
@@ -44,7 +44,7 @@ const { status = 'available' } = defineProps<Props>()
     color: var(--color-white);
   }
 
-  &[data-status="unavailable"] {
+  &[data-status="paid"] {
     cursor: not-allowed;
     background-color: var(--color-unavailable);
     color: var(--color-white);
