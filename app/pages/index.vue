@@ -6,7 +6,9 @@ const currentStep = ref<'order' | 'payment'>('order')
 const onNextStep = () => currentStep.value = 'payment'
 
 const openCartModal = (value: number) => {
+	currentStep.value = 'order'
 	selectedNumber.value = value
+
 	cartModalRef.value.openModal()
 }
 </script>

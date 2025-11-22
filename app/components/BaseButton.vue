@@ -25,6 +25,11 @@ const { variant = 'primary' } = defineProps<Props>()
   transition: all 0.2s;
   border: 0;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
   &[data-variant="primary"] {
     background-color: var(--color-primary);
     color: var(--color-white);

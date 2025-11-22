@@ -3,11 +3,16 @@ export default defineNuxtConfig({
 	modules: ['@nuxt/eslint', '@nuxt/fonts', 'nuxt-phosphor-icons'],
 	devtools: { enabled: true },
 	css: ['~/assets/styles/global.scss'],
+	runtimeConfig: {
+		public: {
+			PIX_KEY: process.env.PIX_KEY,
+		},
+	},
 	compatibilityDate: '2025-07-15',
 	eslint: {
 		config: {
 			stylistic: {
-				indent: 2,
+				indent: 'tab',
 				semi: false,
 				quotes: 'single',
 			},

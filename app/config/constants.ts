@@ -1,2 +1,3 @@
 export const DRAW_DATE = '2025-12-20T20:00:00Z'
 export const RAFFLE_NUMBER_PRICE_IN_CENTS = 30 * 100
+export const PHONE_NUMBER = '5585996997959'

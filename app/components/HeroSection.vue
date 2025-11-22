@@ -14,7 +14,7 @@ const dateFormatted = getDrawDateFormatted()
 				>
 				<img
 					src="/assets/images/hero-mobile.png"
-					alt=""
+					alt="Imagem ilustrativa de uma Airfryer"
 				>
 			</picture>
 

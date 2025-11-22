@@ -21,6 +21,18 @@ defineExpose({
 		class="cart-modal"
 	>
 		<slot />
+
+		<button
+			type="button"
+			class="close-modal-button"
+			aria-label="Fechar modal"
+			@click="closeModal"
+		>
+			<phosphor-icon
+				name="x"
+				weight="bold"
+			/>
+		</button>
 	</dialog>
 </template>
 
@@ -39,6 +51,22 @@ defineExpose({
 
   &::backdrop {
     background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.close-modal-button {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: var(--color-text-secondary);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-text-primary);
   }
 }
 </style>
