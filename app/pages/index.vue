@@ -1,12 +1,16 @@
 <script setup lang="ts">
 type Step = 'order' | 'payment'
 
+const { data: tickets, error, refresh } = await useFetch('/api/tickets')
+
 const cartModalRef = ref()
 const selectedNumber = ref<number | null>(null)
 const currentStep = ref<Step>('order')
 
 const onNextStep = (step: Step) => {
-  currentStep.value = step
+  refresh().then(() => {
+    currentStep.value = step
+  })
 }
 
 const openCartModal = (value: number) => {
@@ -21,7 +25,18 @@ const openCartModal = (value: number) => {
     <hero-section />
 
     <order-section>
-      <raffle-map @on-select="openCartModal" />
+      <p
+        v-if="error"
+        class="error-message"
+      >
+        Não foi possível carregar o mapa de números. Tente recarregar a página.
+      </p>
+
+      <raffle-map
+        v-else
+        :tickets="tickets!"
+        @on-select="openCartModal"
+      />
     </order-section>
 
     <CartModal ref="cartModalRef">
@@ -34,3 +49,11 @@ const openCartModal = (value: number) => {
     </CartModal>
   </main>
 </template>
+
+<style lang="scss" scoped>
+.error-message {
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-error);
+}
+</style>

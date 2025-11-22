@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const { data: tickets, error } = await useFetch('/api/tickets')
+interface Props {
+  tickets: {
+    id: string
+    number: number
+    status: string | null
+  }[]
+}
+
+const { tickets } = defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'onSelect', value: number): void
@@ -7,47 +15,35 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div>
-    <p
-      v-if="error"
-      class="error-message"
+  <div class="raffle-map-grid">
+    <number-selector
+      v-for="ticket in tickets"
+      :key="ticket.id"
+      :status="ticket.status"
+      @click="() => emit('onSelect', ticket.number)"
     >
-      Não foi possível carregar o mapa de números. Tente recarregar a página.
-    </p>
-
-    <div
-      v-else
-      class="raffle-map-grid"
-    >
-      <number-selector
-        v-for="ticket in tickets"
-        :key="ticket.id"
-        :status="ticket.status"
-        @click="() => emit('onSelect', ticket.number)"
-      >
-        {{ ticket.number }}
-      </number-selector>
-    </div>
-
-    <div class="swipe-hint">
-      <phosphor-icon
-        name="arrow-right"
-        weight="bold"
-      />
-    </div>
-
-    <ul class="raffle-map-legend">
-      <li class="raffle-map-legend__item">
-        Disponível
-      </li>
-      <li class="raffle-map-legend__item">
-        Indisponível
-      </li>
-      <li class="raffle-map-legend__item">
-        Aguardando Pagamento
-      </li>
-    </ul>
+      {{ ticket.number }}
+    </number-selector>
   </div>
+
+  <div class="swipe-hint">
+    <phosphor-icon
+      name="arrow-right"
+      weight="bold"
+    />
+  </div>
+
+  <ul class="raffle-map-legend">
+    <li class="raffle-map-legend__item">
+      Disponível
+    </li>
+    <li class="raffle-map-legend__item">
+      Indisponível
+    </li>
+    <li class="raffle-map-legend__item">
+      Aguardando Pagamento
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
@@ -145,11 +141,5 @@ const emit = defineEmits<{
       background-color: var(--color-pending);
     }
   }
-}
-
-.error-message {
-  text-align: center;
-  color: var(--color-error);
-  font-weight: 500;
 }
 </style>

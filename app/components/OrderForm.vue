@@ -1,7 +1,5 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-const priceFormatted = getOrderPriceFormatted()
-const nameInput = ref('')
+import type { FetchError } from 'ofetch'
 
 const props = defineProps<{
   selectedNumber: number
@@ -11,13 +9,52 @@ const emit = defineEmits<{
   (e: 'onSuccess'): void
 }>()
 
-function handleSubmit() {
-  /* TODO: implementar lógica de envio do pedido */
-  console.log('Nome do cliente:', nameInput.value)
-  console.log('Número selecionado:', props.selectedNumber)
-  console.log('Valor total:', priceFormatted)
+const priceFormatted = getOrderPriceFormatted()
+const nameInput = ref('')
+const isLoading = ref(false)
+const errorMessage = ref('')
 
-  emit('onSuccess')
+watch(() => props.selectedNumber, () => {
+  nameInput.value = ''
+  errorMessage.value = ''
+  isLoading.value = false
+})
+
+const handleSubmit = async () => {
+  if (!nameInput.value.trim()) {
+    errorMessage.value = 'Por favor, digite seu nome.'
+    return
+  }
+
+  try {
+    isLoading.value = true
+    errorMessage.value = ''
+
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Simula atraso de rede
+
+    await $fetch('/api/tickets', {
+      method: 'PATCH',
+      body: {
+        ownerName: nameInput.value,
+        number: props.selectedNumber,
+      },
+    })
+
+    emit('onSuccess')
+  }
+  catch (err) {
+    const error = err as FetchError
+
+    if (error.statusCode === 409) {
+      errorMessage.value = 'O número selecionado já foi reservado. Por favor, escolha outro número.'
+      return
+    }
+
+    errorMessage.value = 'Ocorreu um erro. Tente novamente mais tarde.'
+  }
+  finally {
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -60,12 +97,21 @@ function handleSubmit() {
         v-model="nameInput"
         type="text"
         class="order__form-control"
-        required
       >
+
+      <span
+        v-if="errorMessage"
+        class="field-error"
+      >
+        {{ errorMessage }}
+      </span>
     </div>
 
-    <base-button type="submit">
-      Confirmar
+    <base-button
+      type="submit"
+      :disabled="isLoading"
+    >
+      {{ isLoading ? 'Processando...' : 'Finalizar pedido' }}
     </base-button>
   </form>
 </template>
@@ -123,5 +169,11 @@ function handleSubmit() {
   &__form > button {
     width: 100%;
   }
+}
+
+.field-error {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  font-weight: 500;
 }
 </style>

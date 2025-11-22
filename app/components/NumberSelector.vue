@@ -4,6 +4,12 @@ interface Props {
 }
 
 const { status = 'available' } = defineProps<Props>()
+
+const titleMap: Record<string, string> = {
+  available: 'Selecionar',
+  pending: 'Número reservado',
+  paid: 'Número indisponível',
+}
 </script>
 
 <template>
@@ -12,6 +18,8 @@ const { status = 'available' } = defineProps<Props>()
     class="number-selector"
     v-bind="$attrs"
     :data-status="status"
+    :title="status ? titleMap[status] : ''"
+    :disabled="status !== 'available'"
   >
     <slot />
   </button>

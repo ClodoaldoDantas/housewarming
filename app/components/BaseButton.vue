@@ -34,7 +34,7 @@ const { variant = 'primary' } = defineProps<Props>()
     background-color: var(--color-primary);
     color: var(--color-white);
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: var(--color-primary-dark);
     }
   }
@@ -43,9 +43,14 @@ const { variant = 'primary' } = defineProps<Props>()
     background-color: var(--color-success);
     color: var(--color-white);
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: var(--color-success-dark);
     }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 </style>
