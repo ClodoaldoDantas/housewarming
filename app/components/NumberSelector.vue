@@ -1,20 +1,20 @@
 <script setup lang="ts">
 interface Props {
-  status?: 'available' | 'pending' | 'unavailable'
+	status?: 'available' | 'pending' | 'unavailable'
 }
 
 const { status = 'available' } = defineProps<Props>()
 </script>
 
 <template>
-  <button
-    type="button"
-    class="number-selector"
-    v-bind="$attrs"
-    :data-status="status"
-  >
-    <slot />
-  </button>
+	<button
+		type="button"
+		class="number-selector"
+		v-bind="$attrs"
+		:data-status="status"
+	>
+		<slot />
+	</button>
 </template>
 
 <style lang="scss" scoped>

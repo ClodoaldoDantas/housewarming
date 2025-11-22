@@ -4,70 +4,70 @@ const priceFormatted = getOrderPriceFormatted()
 const nameInput = ref('')
 
 const props = defineProps<{
-  selectedNumber: number
+	selectedNumber: number
 }>()
 
 const emit = defineEmits<{
-  (e: 'onSuccess'): void
+	(e: 'onSuccess'): void
 }>()
 
 function handleSubmit() {
-  /* TODO: implementar lógica de envio do pedido */
-  console.log('Nome do cliente:', nameInput.value)
-  console.log('Número selecionado:', props.selectedNumber)
-  console.log('Valor total:', priceFormatted)
+	/* TODO: implementar lógica de envio do pedido */
+	console.log('Nome do cliente:', nameInput.value)
+	console.log('Número selecionado:', props.selectedNumber)
+	console.log('Valor total:', priceFormatted)
 
-  emit('onSuccess')
+	emit('onSuccess')
 }
 </script>
 
 <template>
-  <div class="order__icon">
-    <phosphor-icon
-      name="currency-circle-dollar"
-      weight="bold"
-    />
-  </div>
+	<div class="order__icon">
+		<phosphor-icon
+			name="currency-circle-dollar"
+			weight="bold"
+		/>
+	</div>
 
-  <div class="order__details">
-    <h3 class="order__title">
-      Realizar pedido
-    </h3>
+	<div class="order__details">
+		<h3 class="order__title">
+			Realizar pedido
+		</h3>
 
-    <p class="order__description">
-      Você selecionou o número: <b>{{ props.selectedNumber }}</b>
-    </p>
+		<p class="order__description">
+			Você selecionou o número: <b>{{ props.selectedNumber }}</b>
+		</p>
 
-    <p class="order__total">
-      Valor total: <b>{{ priceFormatted }}</b>
-    </p>
-  </div>
+		<p class="order__total">
+			Valor total: <b>{{ priceFormatted }}</b>
+		</p>
+	</div>
 
-  <form
-    class="order__form"
-    @submit.prevent="handleSubmit"
-  >
-    <div class="order__form-group">
-      <label
-        class="order__form-label"
-        for="name"
-      >
-        Digite seu nome
-      </label>
+	<form
+		class="order__form"
+		@submit.prevent="handleSubmit"
+	>
+		<div class="order__form-group">
+			<label
+				class="order__form-label"
+				for="name"
+			>
+				Digite seu nome
+			</label>
 
-      <input
-        id="name"
-        v-model="nameInput"
-        type="text"
-        class="order__form-control"
-        required
-      >
-    </div>
+			<input
+				id="name"
+				v-model="nameInput"
+				type="text"
+				class="order__form-control"
+				required
+			>
+		</div>
 
-    <base-button type="submit">
-      Confirmar
-    </base-button>
-  </form>
+		<base-button type="submit">
+			Confirmar
+		</base-button>
+	</form>
 </template>
 
 <style lang="scss" scoped>
@@ -93,17 +93,16 @@ function handleSubmit() {
 
   &__title {
     font-size: var(--text-lg);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
   }
 
   &__description,
   &__total {
-    font-size: var(--text-sm);
     color: var(--color-text-secondary);
   }
 
   &__form-group {
-    margin-bottom: 3.2rem;
+    margin-bottom: 2.4rem;
   }
 
   &__form-label {

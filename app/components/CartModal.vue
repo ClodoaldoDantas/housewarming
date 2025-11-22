@@ -2,26 +2,26 @@
 const cartModalRef = ref<HTMLDialogElement>()
 
 const openModal = () => {
-  cartModalRef.value?.showModal()
+	cartModalRef.value?.showModal()
 }
 
 const closeModal = () => {
-  cartModalRef.value?.close()
+	cartModalRef.value?.close()
 }
 
 defineExpose({
-  openModal,
-  closeModal,
+	openModal,
+	closeModal,
 })
 </script>
 
 <template>
-  <dialog
-    ref="cartModalRef"
-    class="cart-modal"
-  >
-    <slot />
-  </dialog>
+	<dialog
+		ref="cartModalRef"
+		class="cart-modal"
+	>
+		<slot />
+	</dialog>
 </template>
 
 <style scoped lang="scss">

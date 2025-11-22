@@ -1,39 +1,39 @@
 <script setup lang="ts">
 const emit = defineEmits<{
-  (e: 'onSelect', value: number): void
+	(e: 'onSelect', value: number): void
 }>()
 </script>
 
 <template>
-  <div class="raffle-map-grid">
-    <number-selector
-      v-for="value in 100"
-      :key="value"
-      status="available"
-      @click="() => emit('onSelect', value)"
-    >
-      {{ value }}
-    </number-selector>
-  </div>
+	<div class="raffle-map-grid">
+		<number-selector
+			v-for="value in 100"
+			:key="value"
+			status="available"
+			@click="() => emit('onSelect', value)"
+		>
+			{{ value }}
+		</number-selector>
+	</div>
 
-  <div class="swipe-hint">
-    <phosphor-icon
-      name="arrow-right"
-      weight="bold"
-    />
-  </div>
+	<div class="swipe-hint">
+		<phosphor-icon
+			name="arrow-right"
+			weight="bold"
+		/>
+	</div>
 
-  <ul class="raffle-map-legend">
-    <li class="raffle-map-legend__item">
-      Disponível
-    </li>
-    <li class="raffle-map-legend__item">
-      Indisponível
-    </li>
-    <li class="raffle-map-legend__item">
-      Aguardando Pagamento
-    </li>
-  </ul>
+	<ul class="raffle-map-legend">
+		<li class="raffle-map-legend__item">
+			Disponível
+		</li>
+		<li class="raffle-map-legend__item">
+			Indisponível
+		</li>
+		<li class="raffle-map-legend__item">
+			Aguardando Pagamento
+		</li>
+	</ul>
 </template>
 
 <style lang="scss" scoped>

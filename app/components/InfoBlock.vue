@@ -1,10 +1,10 @@
 <template>
-  <div class="info-block">
-    <phosphor-icon name="info" />
-    <div class="info-block__content">
-      <slot />
-    </div>
-  </div>
+	<div class="info-block">
+		<phosphor-icon name="info" />
+		<div class="info-block__content">
+			<slot />
+		</div>
+	</div>
 </template>
 
 <style lang="scss" scoped>
