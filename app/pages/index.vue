@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const cartModalRef = ref<HTMLDialogElement>()
+const cartModalRef = ref()
 const selectedNumber = ref<number | null>(null)
 
 const currentStep = ref<'order' | 'payment'>('order')
+const onNextStep = () => currentStep.value = 'payment'
 
 const openCartModal = (value: number) => {
   selectedNumber.value = value
-  cartModalRef.value?.showModal()
+  cartModalRef.value.openModal()
 }
 </script>
 
@@ -18,31 +19,13 @@ const openCartModal = (value: number) => {
       <raffle-map @on-select="openCartModal" />
     </order-section>
 
-    <dialog
-      ref="cartModalRef"
-      class="cart-modal"
-    >
-      <order-form v-if="currentStep === 'order'" />
-      <payment-details v-if="currentStep === 'payment'" />
-    </dialog>
+    <CartModal ref="cartModalRef">
+      <order-form
+        v-if="currentStep === 'order' && selectedNumber !== null"
+        :selected-number="selectedNumber"
+        @on-success="onNextStep"
+      />
+      <payment-details v-else />
+    </CartModal>
   </main>
 </template>
-
-<style scoped lang="scss">
-.cart-modal {
-  background-color: var(--color-white);
-  width: min(90%, 48rem);
-  padding: 2.4rem;
-  border-radius: 1.2rem;
-  border: 0;
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  &::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-  }
-}
-</style>

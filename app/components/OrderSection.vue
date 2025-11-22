@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { RAFFLE_NUMBER_PRICE_IN_CENTS } from '~/config/constants'
-
-const priceFormatted = (RAFFLE_NUMBER_PRICE_IN_CENTS / 100).toLocaleString('pt-BR', {
-  style: 'currency',
-  currency: 'BRL',
-})
+const priceFormatted = getOrderPriceFormatted()
 </script>
 
 <template>

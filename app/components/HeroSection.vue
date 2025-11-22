@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DRAW_DATE } from '~/config/constants'
 
-const dateFormatted = new Date(DRAW_DATE).toLocaleDateString('pt-BR')
+const dateFormatted = getDrawDateFormatted()
 </script>
 
 <template>
