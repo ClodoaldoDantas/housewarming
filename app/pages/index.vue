@@ -6,28 +6,28 @@ const currentStep = ref<'order' | 'payment'>('order')
 const onNextStep = () => currentStep.value = 'payment'
 
 const openCartModal = (value: number) => {
-	currentStep.value = 'order'
-	selectedNumber.value = value
+  currentStep.value = 'order'
+  selectedNumber.value = value
 
-	cartModalRef.value.openModal()
+  cartModalRef.value.openModal()
 }
 </script>
 
 <template>
-	<main>
-		<hero-section />
+  <main>
+    <hero-section />
 
-		<order-section>
-			<raffle-map @on-select="openCartModal" />
-		</order-section>
+    <order-section>
+      <raffle-map @on-select="openCartModal" />
+    </order-section>
 
-		<CartModal ref="cartModalRef">
-			<order-form
-				v-if="currentStep === 'order' && selectedNumber !== null"
-				:selected-number="selectedNumber"
-				@on-success="onNextStep"
-			/>
-			<payment-details v-else />
-		</CartModal>
-	</main>
+    <CartModal ref="cartModalRef">
+      <order-form
+        v-if="currentStep === 'order' && selectedNumber !== null"
+        :selected-number="selectedNumber"
+        @on-success="onNextStep"
+      />
+      <payment-details v-else />
+    </CartModal>
+  </main>
 </template>

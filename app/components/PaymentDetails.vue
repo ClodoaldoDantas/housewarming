@@ -6,100 +6,100 @@ const config = useRuntimeConfig()
 const isCopied = ref(false)
 
 const copyPixKeyToClipboard = () => {
-	navigator.clipboard.writeText(config.public.PIX_KEY)
-		.then(() => {
-			isCopied.value = true
-			setTimeout(() => {
-				isCopied.value = false
-			}, 2000)
-		})
+  navigator.clipboard.writeText(config.public.PIX_KEY)
+    .then(() => {
+      isCopied.value = true
+      setTimeout(() => {
+        isCopied.value = false
+      }, 2000)
+    })
 }
 
 const sharePaymentProof = () => {
-	const message = 'Olá, acabei de realizar o pagamento do meu pedido. Segue o comprovante em anexo.'
-	const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`
-	window.open(url, '_blank', 'noopener,noreferrer')
+  const message = 'Olá, acabei de realizar o pagamento do meu pedido. Segue o comprovante em anexo.'
+  const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 </script>
 
 <template>
-	<div class="payment__icon">
-		<phosphor-icon
-			name="seal-check"
-			weight="bold"
-		/>
-	</div>
+  <div class="payment__icon">
+    <phosphor-icon
+      name="seal-check"
+      weight="bold"
+    />
+  </div>
 
-	<div class="payment__header">
-		<h3 class="payment__title">
-			Pedido realizado com sucesso
-		</h3>
+  <div class="payment__header">
+    <h3 class="payment__title">
+      Pedido realizado com sucesso
+    </h3>
 
-		<p class="payment__description">
-			Realize o pagamento abaixo para confirmarmos sua participação. Após o pagamento, envie o comprovante para nós.
-		</p>
-	</div>
+    <p class="payment__description">
+      Realize o pagamento abaixo para confirmarmos sua participação. Após o pagamento, envie o comprovante para nós.
+    </p>
+  </div>
 
-	<div class="payment__qr-code">
-		<img
-			src="/assets/images/qrcode-pix.png"
-			alt="QR Code para pagamento via Pix"
-		>
-	</div>
+  <div class="payment__qr-code">
+    <img
+      src="/assets/images/qrcode-pix.png"
+      alt="QR Code para pagamento via Pix"
+    >
+  </div>
 
-	<div class="clipboard">
-		<label
-			class="clipboard__label"
-			for="pix-key"
-		>
-			Chave do Pix
-		</label>
+  <div class="clipboard">
+    <label
+      class="clipboard__label"
+      for="pix-key"
+    >
+      Chave do Pix
+    </label>
 
-		<div class="clipboard__control">
-			<input
-				id="pix-key"
-				type="text"
-				:value="config.public.PIX_KEY"
-				disabled
-				class="clipboard__field"
-			>
+    <div class="clipboard__control">
+      <input
+        id="pix-key"
+        type="text"
+        :value="config.public.PIX_KEY"
+        disabled
+        class="clipboard__field"
+      >
 
-			<button
-				type="button"
-				title="Copiar"
-				aria-label="Copiar chave pix"
-				class="clipboard__copy-button"
-				@click="copyPixKeyToClipboard()"
-			>
-				<phosphor-icon
-					v-if="isCopied"
-					name="check"
-					weight="bold"
-					color="var(--color-success)"
-				/>
+      <button
+        type="button"
+        title="Copiar"
+        aria-label="Copiar chave pix"
+        class="clipboard__copy-button"
+        @click="copyPixKeyToClipboard()"
+      >
+        <phosphor-icon
+          v-if="isCopied"
+          name="check"
+          weight="bold"
+          color="var(--color-success)"
+        />
 
-				<phosphor-icon
-					v-else
-					name="copy"
-					weight="bold"
-					color="var(--color-text-secondary)"
-				/>
-			</button>
-		</div>
-	</div>
+        <phosphor-icon
+          v-else
+          name="copy"
+          weight="bold"
+          color="var(--color-text-secondary)"
+        />
+      </button>
+    </div>
+  </div>
 
-	<div class="payment__share">
-		<base-button
-			variant="success"
-			@click="sharePaymentProof()"
-		>
-			<phosphor-icon
-				name="whatsapp-logo"
-			/>
+  <div class="payment__share">
+    <base-button
+      variant="success"
+      @click="sharePaymentProof()"
+    >
+      <phosphor-icon
+        name="whatsapp-logo"
+      />
 
-			Compartilhar comprovante
-		</base-button>
-	</div>
+      Compartilhar comprovante
+    </base-button>
+  </div>
 </template>
 
 <style lang="scss" scoped>

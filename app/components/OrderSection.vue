@@ -3,32 +3,32 @@ const priceFormatted = getOrderPriceFormatted()
 </script>
 
 <template>
-	<section
-		id="order-section"
-		class="order-section"
-	>
-		<header class="order-section__header">
-			<div class="container">
-				<h2 class="order-section__title">
-					Mapa completo dos números da rifa
-				</h2>
+  <section
+    id="order-section"
+    class="order-section"
+  >
+    <header class="order-section__header">
+      <div class="container">
+        <h2 class="order-section__title">
+          Mapa completo dos números da rifa
+        </h2>
 
-				<p class="order-section__description">
-					Visualize a lista completa com status: disponível, pendente e confirmado. Selecione os disponíveis para participar.
-				</p>
-			</div>
-		</header>
+        <p class="order-section__description">
+          Visualize a lista completa com status: disponível, pendente e confirmado. Selecione os disponíveis para participar.
+        </p>
+      </div>
+    </header>
 
-		<div class="order-section__content">
-			<slot />
-		</div>
+    <div class="order-section__content">
+      <slot />
+    </div>
 
-		<div class="order-section__info">
-			<info-block>
-				O valor de cada número custa <b>{{ priceFormatted }}</b>
-			</info-block>
-		</div>
-	</section>
+    <div class="order-section__info">
+      <info-block>
+        O valor de cada número custa <b>{{ priceFormatted }}</b>
+      </info-block>
+    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

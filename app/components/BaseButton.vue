@@ -1,20 +1,20 @@
 <script setup lang="ts">
 interface Props {
-	variant?: 'primary' | 'success'
+  variant?: 'primary' | 'success'
 }
 
 const { variant = 'primary' } = defineProps<Props>()
 </script>
 
 <template>
-	<button
-		type="button"
-		class="base-button"
-		:data-variant="variant"
-		v-bind="$attrs"
-	>
-		<slot />
-	</button>
+  <button
+    type="button"
+    class="base-button"
+    :data-variant="variant"
+    v-bind="$attrs"
+  >
+    <slot />
+  </button>
 </template>
 
 <style>

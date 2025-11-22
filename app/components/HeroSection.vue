@@ -5,68 +5,68 @@ const dateFormatted = getDrawDateFormatted()
 </script>
 
 <template>
-	<section class="hero">
-		<div class="container hero__container">
-			<picture class="hero__image">
-				<source
-					srcset="/assets/images/hero-desktop.png"
-					media="(min-width: 1200px)"
-				>
-				<img
-					src="/assets/images/hero-mobile.png"
-					alt="Imagem ilustrativa de uma Airfryer"
-				>
-			</picture>
+  <section class="hero">
+    <div class="container hero__container">
+      <picture class="hero__image">
+        <source
+          srcset="/assets/images/hero-desktop.png"
+          media="(min-width: 1200px)"
+        >
+        <img
+          src="/assets/images/hero-mobile.png"
+          alt="Imagem ilustrativa de uma Airfryer"
+        >
+      </picture>
 
-			<div class="hero__content">
-				<h1 class="hero__title">
-					Ganhe uma Airfryer novinha no nosso Chá de Casa Nova
-				</h1>
+      <div class="hero__content">
+        <h1 class="hero__title">
+          Ganhe uma Airfryer novinha no nosso Chá de Casa Nova
+        </h1>
 
-				<div class="hero__steps">
-					<div class="hero__step">
-						<div class="hero__icon">
-							<phosphor-icon
-								name="number-circle-three"
-								weight="bold"
-							/>
-						</div>
-						<span>Escolha seu número da sorte</span>
-					</div>
+        <div class="hero__steps">
+          <div class="hero__step">
+            <div class="hero__icon">
+              <phosphor-icon
+                name="number-circle-three"
+                weight="bold"
+              />
+            </div>
+            <span>Escolha seu número da sorte</span>
+          </div>
 
-					<div class="hero__step">
-						<div class="hero__icon">
-							<phosphor-icon
-								name="money"
-								weight="bold"
-							/>
-						</div>
-						<span>Faça um Pix e envie o comprovante</span>
-					</div>
+          <div class="hero__step">
+            <div class="hero__icon">
+              <phosphor-icon
+                name="money"
+                weight="bold"
+              />
+            </div>
+            <span>Faça um Pix e envie o comprovante</span>
+          </div>
 
-					<div class="hero__step">
-						<div class="hero__icon">
-							<phosphor-icon
-								name="gift"
-								weight="bold"
-							/>
-						</div>
-						<span>Pronto! você já está participando</span>
-					</div>
-				</div>
+          <div class="hero__step">
+            <div class="hero__icon">
+              <phosphor-icon
+                name="gift"
+                weight="bold"
+              />
+            </div>
+            <span>Pronto! você já está participando</span>
+          </div>
+        </div>
 
-				<div class="hero__actions">
-					<base-button @click="scrollToSection('order-section')">
-						Quero Participar
-					</base-button>
+        <div class="hero__actions">
+          <base-button @click="scrollToSection('order-section')">
+            Quero Participar
+          </base-button>
 
-					<info-block>
-						o sorteio será realizado em <time :datetime="DRAW_DATE">{{ dateFormatted }}</time>
-					</info-block>
-				</div>
-			</div>
-		</div>
-	</section>
+          <info-block>
+            o sorteio será realizado em <time :datetime="DRAW_DATE">{{ dateFormatted }}</time>
+          </info-block>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
