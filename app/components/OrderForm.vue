@@ -30,8 +30,6 @@ const handleSubmit = async () => {
     isLoading.value = true
     errorMessage.value = ''
 
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simula atraso de rede
-
     await $fetch('/api/tickets', {
       method: 'PATCH',
       body: {

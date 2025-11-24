@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type Step = 'order' | 'payment'
 
-const { data: tickets, error, refresh } = await useFetch('/api/tickets')
+const { data: tickets, error, refresh, pending } = await useLazyFetch('/api/tickets')
 
 const cartModalRef = ref()
 const selectedNumber = ref<number | null>(null)
@@ -25,8 +25,10 @@ const openCartModal = (value: number) => {
     <hero-section />
 
     <order-section>
+      <raffle-map-skeleton v-if="pending" />
+
       <p
-        v-if="error"
+        v-else-if="error"
         class="error-message"
       >
         Não foi possível carregar o mapa de números. Tente recarregar a página.
@@ -34,7 +36,7 @@ const openCartModal = (value: number) => {
 
       <raffle-map
         v-else
-        :tickets="tickets!"
+        :tickets="tickets || []"
         @on-select="openCartModal"
       />
     </order-section>
