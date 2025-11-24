@@ -168,10 +168,4 @@ const handleSubmit = async () => {
     width: 100%;
   }
 }
-
-.field-error {
-  font-size: var(--text-sm);
-  color: var(--color-error);
-  font-weight: 500;
-}
 </style>

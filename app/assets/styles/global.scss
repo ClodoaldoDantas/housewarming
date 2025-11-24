@@ -87,3 +87,9 @@ time {
   margin: 0 auto;
   padding: 0 1.6rem;
 }
+
+.field-error {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  font-weight: 500;
+}
