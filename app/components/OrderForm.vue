@@ -13,16 +13,35 @@ const priceFormatted = getOrderPriceFormatted()
 const nameInput = ref('')
 const isLoading = ref(false)
 const errorMessage = ref('')
+const hasAttemptedSubmit = ref(false)
 
 watch(() => props.selectedNumber, () => {
   nameInput.value = ''
   errorMessage.value = ''
   isLoading.value = false
+  hasAttemptedSubmit.value = false
 })
 
-const handleSubmit = async () => {
+watch(nameInput, () => {
+  if (hasAttemptedSubmit.value) {
+    validateName()
+  }
+})
+
+const validateName = () => {
   if (!nameInput.value.trim()) {
     errorMessage.value = 'Por favor, digite seu nome.'
+    return false
+  }
+
+  errorMessage.value = ''
+  return true
+}
+
+const handleSubmit = async () => {
+  hasAttemptedSubmit.value = true
+
+  if (!validateName()) {
     return
   }
 
@@ -95,6 +114,7 @@ const handleSubmit = async () => {
         v-model="nameInput"
         type="text"
         class="order__form-control"
+        :class="{ 'order__form-control--error': errorMessage && hasAttemptedSubmit }"
       >
 
       <span
@@ -162,6 +182,10 @@ const handleSubmit = async () => {
     padding: 1rem 1.4rem;
     border: 0.1rem solid var(--color-border);
     border-radius: 0.8rem;
+
+    &--error {
+      outline: 2px solid var(--color-error);
+    }
   }
 
   &__form > button {

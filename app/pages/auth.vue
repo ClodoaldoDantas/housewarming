@@ -1,23 +1,45 @@
 <script setup lang="ts">
 const passwordInput = ref('')
 const errorMessage = ref('')
+const hasAttemptedSubmit = ref(false)
 const inputType = ref<'password' | 'text'>('password')
 const inputIcon = computed(() =>
   inputType.value === 'password' ? 'eye' : 'eye-closed',
 )
 
+watch(passwordInput, () => {
+  if (hasAttemptedSubmit.value) {
+    validatePassword()
+  }
+})
+
 const togglePasswordVisibility = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
 
-const handleSubmit = () => {
+const validatePassword = () => {
   if (!passwordInput.value.trim()) {
     errorMessage.value = 'Por favor, digite sua senha.'
+    return false
+  }
+
+  if (passwordInput.value.length < 6) {
+    errorMessage.value = 'A senha deve ter pelo menos 6 caracteres.'
+    return false
+  }
+
+  errorMessage.value = ''
+  return true
+}
+
+const handleSubmit = () => {
+  hasAttemptedSubmit.value = true
+
+  if (!validatePassword()) {
     return
   }
 
   errorMessage.value = ''
-
   // TODO: Implementar lógica de autenticação
   console.log({ password: passwordInput.value })
 }
@@ -46,7 +68,10 @@ const handleSubmit = () => {
         <div class="auth__form-group">
           <label for="password">Digite sua senha</label>
 
-          <div class="auth__form-input">
+          <div
+            class="auth__form-input"
+            :class="{ 'auth__form-input--error': errorMessage && hasAttemptedSubmit }"
+          >
             <input
               id="password"
               v-model="passwordInput"
@@ -148,6 +173,10 @@ const handleSubmit = () => {
     border: 0.1rem solid var(--color-border);
     border-radius: 0.8rem;
     padding-inline: 1.4rem;
+
+    &--error {
+      outline: 2px solid var(--color-error);
+    }
 
     & > input {
       height: 100%;
