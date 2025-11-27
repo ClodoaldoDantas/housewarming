@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type { FetchError } from 'ofetch'
+
+const { fetch: refreshSession } = useUserSession()
+
 const passwordInput = ref('')
 const errorMessage = ref('')
 const hasAttemptedSubmit = ref(false)
@@ -32,16 +36,34 @@ const validatePassword = () => {
   return true
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   hasAttemptedSubmit.value = true
 
   if (!validatePassword()) {
     return
   }
 
-  errorMessage.value = ''
-  // TODO: Implementar lógica de autenticação
-  console.log({ password: passwordInput.value })
+  try {
+    await $fetch('/api/login', {
+      method: 'POST',
+      body: {
+        password: passwordInput.value,
+      },
+    })
+
+    await refreshSession()
+    await navigateTo('/admin')
+  }
+  catch (err) {
+    const error = err as FetchError
+
+    if (error.statusCode === 401) {
+      errorMessage.value = 'Credenciais inválidas.'
+      return
+    }
+
+    errorMessage.value = 'Ocorreu um erro. Tente novamente mais tarde.'
+  }
 }
 </script>
 
