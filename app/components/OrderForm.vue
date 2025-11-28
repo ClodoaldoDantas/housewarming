@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { FetchError } from 'ofetch'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import z from 'zod'
 
 const props = defineProps<{
   selectedNumber: number
@@ -9,50 +12,30 @@ const emit = defineEmits<{
   (e: 'onSuccess'): void
 }>()
 
+const { errors, handleSubmit, defineField, isSubmitting, resetForm, setFieldError } = useForm({
+  initialValues: {
+    name: '',
+  },
+  validationSchema: toTypedSchema(
+    z.object({
+      name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
+    }),
+  ),
+})
+
+const [name, nameAttrs] = defineField('name')
 const priceFormatted = getOrderPriceFormatted()
-const nameInput = ref('')
-const isLoading = ref(false)
-const errorMessage = ref('')
-const hasAttemptedSubmit = ref(false)
 
 watch(() => props.selectedNumber, () => {
-  nameInput.value = ''
-  errorMessage.value = ''
-  isLoading.value = false
-  hasAttemptedSubmit.value = false
+  resetForm()
 })
 
-watch(nameInput, () => {
-  if (hasAttemptedSubmit.value) {
-    validateName()
-  }
-})
-
-const validateName = () => {
-  if (!nameInput.value.trim()) {
-    errorMessage.value = 'Por favor, digite seu nome.'
-    return false
-  }
-
-  errorMessage.value = ''
-  return true
-}
-
-const handleSubmit = async () => {
-  hasAttemptedSubmit.value = true
-
-  if (!validateName()) {
-    return
-  }
-
+const onSubmit = handleSubmit(async (values) => {
   try {
-    isLoading.value = true
-    errorMessage.value = ''
-
     await $fetch('/api/tickets', {
       method: 'PATCH',
       body: {
-        ownerName: nameInput.value,
+        ownerName: values.name,
         number: props.selectedNumber,
       },
     })
@@ -63,16 +46,13 @@ const handleSubmit = async () => {
     const error = err as FetchError
 
     if (error.statusCode === 409) {
-      errorMessage.value = 'O número selecionado já foi reservado. Por favor, escolha outro número.'
+      setFieldError('name', 'O número selecionado já foi reservado. Por favor, escolha outro número.')
       return
     }
 
-    errorMessage.value = 'Ocorreu um erro. Tente novamente mais tarde.'
+    setFieldError('name', 'Ocorreu um erro. Tente novamente mais tarde.')
   }
-  finally {
-    isLoading.value = false
-  }
-}
+})
 </script>
 
 <template>
@@ -99,7 +79,7 @@ const handleSubmit = async () => {
 
   <form
     class="order__form"
-    @submit.prevent="handleSubmit"
+    @submit="onSubmit"
   >
     <div class="order__form-group">
       <label
@@ -111,25 +91,26 @@ const handleSubmit = async () => {
 
       <input
         id="name"
-        v-model="nameInput"
+        v-model="name"
         type="text"
         class="order__form-control"
-        :class="{ 'order__form-control--error': errorMessage && hasAttemptedSubmit }"
+        :class="{ 'order__form-control--error': !!errors.name }"
+        v-bind="nameAttrs"
       >
 
       <span
-        v-if="errorMessage"
+        v-show="!!errors.name"
         class="field-error"
       >
-        {{ errorMessage }}
+        {{ errors.name }}
       </span>
     </div>
 
     <base-button
       type="submit"
-      :disabled="isLoading"
+      :disabled="isSubmitting"
     >
-      {{ isLoading ? 'Processando...' : 'Finalizar pedido' }}
+      {{ isSubmitting ? 'Processando...' : 'Finalizar pedido' }}
     </base-button>
   </form>
 </template>
