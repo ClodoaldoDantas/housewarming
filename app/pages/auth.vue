@@ -1,53 +1,40 @@
 <script setup lang="ts">
 import type { FetchError } from 'ofetch'
 
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import z from 'zod'
+
 const { fetch: refreshSession } = useUserSession()
 
-const passwordInput = ref('')
-const errorMessage = ref('')
-const hasAttemptedSubmit = ref(false)
+const { errors, handleSubmit, defineField, isSubmitting, setFieldError } = useForm({
+  initialValues: {
+    password: '',
+  },
+  validationSchema: toTypedSchema(
+    z.object({
+      password: z.string().min(8, 'A senha deve ter no mínimo 8 caracteres'),
+    }),
+  ),
+})
+
+const [password, passwordAttrs] = defineField('password')
+
 const inputType = ref<'password' | 'text'>('password')
 const inputIcon = computed(() =>
   inputType.value === 'password' ? 'eye' : 'eye-closed',
 )
 
-watch(passwordInput, () => {
-  if (hasAttemptedSubmit.value) {
-    validatePassword()
-  }
-})
-
 const togglePasswordVisibility = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
 
-const validatePassword = () => {
-  if (!passwordInput.value.trim()) {
-    errorMessage.value = 'Por favor, digite sua senha.'
-    return false
-  }
-
-  if (passwordInput.value.length < 6) {
-    errorMessage.value = 'A senha deve ter pelo menos 6 caracteres.'
-    return false
-  }
-
-  errorMessage.value = ''
-  return true
-}
-
-const handleSubmit = async () => {
-  hasAttemptedSubmit.value = true
-
-  if (!validatePassword()) {
-    return
-  }
-
+const onSubmit = handleSubmit(async (values) => {
   try {
     await $fetch('/api/login', {
       method: 'POST',
       body: {
-        password: passwordInput.value,
+        password: values.password,
       },
     })
 
@@ -58,13 +45,13 @@ const handleSubmit = async () => {
     const error = err as FetchError
 
     if (error.statusCode === 401) {
-      errorMessage.value = 'Credenciais inválidas.'
+      setFieldError('password', 'Credenciais inválidas.')
       return
     }
 
-    errorMessage.value = 'Ocorreu um erro. Tente novamente mais tarde.'
+    setFieldError('password', 'Ocorreu um erro. Tente novamente mais tarde.')
   }
-}
+})
 </script>
 
 <template>
@@ -85,19 +72,20 @@ const handleSubmit = async () => {
 
       <form
         class="auth__form"
-        @submit.prevent="handleSubmit"
+        @submit="onSubmit"
       >
         <div class="auth__form-group">
           <label for="password">Digite sua senha</label>
 
           <div
             class="auth__form-input"
-            :class="{ 'auth__form-input--error': errorMessage && hasAttemptedSubmit }"
+            :class="{ 'auth__form-input--error': !!errors.password }"
           >
             <input
               id="password"
-              v-model="passwordInput"
+              v-model="password"
               :type="inputType"
+              v-bind="passwordAttrs"
             >
 
             <button
@@ -113,15 +101,18 @@ const handleSubmit = async () => {
           </div>
 
           <span
-            v-if="errorMessage"
+            v-show="!!errors.password"
             class="field-error"
           >
-            {{ errorMessage }}
+            {{ errors.password }}
           </span>
         </div>
 
-        <base-button type="submit">
-          Entrar
+        <base-button
+          type="submit"
+          :disabled="isSubmitting"
+        >
+          {{ isSubmitting ? 'Processando...' : 'Entrar' }}
         </base-button>
       </form>
     </div>
