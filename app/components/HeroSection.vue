@@ -78,10 +78,6 @@ const dateFormatted = getDrawDateFormatted()
     padding: 6.4rem 0;
   }
 
-  @media(width >= 1200px) {
-    padding: 9.6rem 0;
-  }
-
   &__container {
     display: flex;
     flex-direction: column;
